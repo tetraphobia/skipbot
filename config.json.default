@@ -1,5 +1,5 @@
 {
-	"token": "ODM5MTE3NDkyNTQxODQ5NjAw.YJE_EA.hNVKiGjURJ_fFTvX4grV7UCQyJ0",
+	"token": "your-token",
 	"modules_enabled": ["eastereggs", "lfgwebhook"],
 	"prefix": ">",
 	"status": "Destroy all boomkins.",
