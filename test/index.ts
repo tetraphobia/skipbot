@@ -6,7 +6,7 @@ const content = JSON.stringify(require('./test_valid.json'))
 async function test() {
     console.log(content)
     await fetch(
-        `http://localhost:${port}/lfg`,
+        `https://wyvrn.dev/webhooks/lfg`,
         {
             method: 'POST',
             body: content,

@@ -33,7 +33,7 @@ export abstract class LFGWebHook {
             .setTimestamp()
             .setFooter('Message Skipkin for issues about the bot.')
 
-        // channel.send(embed)
+        channel.send(embed)
     }
 
     static init() {
@@ -43,7 +43,7 @@ export abstract class LFGWebHook {
 
         this._exp.use(express.json())
 
-        this._exp.post('/lfg', (req, res) => {
+        this._exp.post('/new', (req, res) => {
             if (/\[US]/.test(req.body.title) && /\[H]/.test(req.body.title) && /\[LFG]/.test(req.body.title)) {
                 client.emit('post_request', client, req.body)
             }
