@@ -43,7 +43,7 @@ export abstract class LFGWebHook {
 
         this._exp.use(express.json())
 
-        this._exp.post('/new', (req, res) => {
+        this._exp.post('/', (req, res) => {
             if (/\[US]/.test(req.body.title) && /\[H]/.test(req.body.title) && /\[LFG]/.test(req.body.title)) {
                 client.emit('post_request', client, req.body)
             }
