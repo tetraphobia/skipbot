@@ -1,7 +1,7 @@
 import { Command, CommandNotFound, CommandMessage } from '@typeit/discord';
 import ffmpeg from 'fluent-ffmpeg';
 
-function concat(files) {
+function concat(files: string[]) {
     const filter = `concat:${files.join('|')}`
 
     ffmpeg()
@@ -32,14 +32,14 @@ export abstract class EasterEggs {
 
     @CommandNotFound()
     private notFound(command: CommandMessage){
-        if (command.content.match(/she{2,}sh/)){
+        if (command.content.match(/she{2,}sh/i)){
             const voiceChan = command.member.voice.channel;
             if (voiceChan){
                 let files = [
                     `${__dirname}/sounds/sheeshstart.ogg`,
                 ];
 
-                const count = (command.content.match(/e{4}/g) || [])
+                const count = (command.content.match(/e{4}/gi) || [])
                 count.forEach(e => files.push(`${__dirname}/sounds/ee.ogg`))
 
                 files.push(`${__dirname}/sounds/sheeshend.ogg`)
