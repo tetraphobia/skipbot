@@ -1,4 +1,4 @@
-import { Command, CommandMessage } from '@typeit/discord';
+import { Command, CommandNotFound, CommandMessage } from '@typeit/discord';
 
 export abstract class EasterEggs {
     @Command('bababooey')
@@ -17,6 +17,14 @@ export abstract class EasterEggs {
                 .catch(err => console.log(err))
         } else {
             await command.channel.send("Baba booey!")
+        }
+    }
+
+    @CommandNotFound()
+    private notFound(message: CommandMessage){
+        if (message.content.match(/she{2,}sh/)){
+            message.channel.send(message.content.replace(/\>/, '').toUpperCase())
+
         }
     }
 }
