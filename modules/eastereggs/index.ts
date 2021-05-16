@@ -1,14 +1,5 @@
 import { Command, CommandNotFound, CommandMessage } from '@typeit/discord';
-import ffmpeg from 'fluent-ffmpeg';
-
-function concat(files: string[]) {
-    const filter = `concat:${files.join('|')}`
-
-    ffmpeg()
-        .input(filter)
-        .save(`${__dirname}/out.ogg`)
-
-}
+import {concat} from "../../lib/ffmpegConcat";
 
 export abstract class EasterEggs {
     @Command('bababooey')
@@ -47,17 +38,18 @@ export abstract class EasterEggs {
                 console.log(`${command.member.user} is sheeshing with a length of ${count.length}`)
                 console.log(files)
 
-                concat(files)
-                voiceChan.join()
-                    .then(conn => {
-                        const dispatcher = conn.play(`${__dirname}/out.ogg`, {volume: 0.75})
-                        dispatcher.on('speaking', speaking => {
-                            if (!speaking) {voiceChan.leave()}
-                        })
-                        dispatcher.on('end', end => {voiceChan.leave()})
-                    })
-
-                    .catch(err => console.log(err))
+                concat(files, `${__dirname}/out.ogg`)
+                    .then(() =>
+                        voiceChan.join()
+                            .then(conn => {
+                                const dispatcher = conn.play(`${__dirname}/out.ogg`, {volume: 0.75})
+                                dispatcher.on('speaking', speaking => {
+                                    if (!speaking) {voiceChan.leave()}
+                                })
+                                dispatcher.on('end', end => {voiceChan.leave()})
+                            })
+                            .catch(console.log)
+                    )
             } else {
                 command.channel.send(command.content.replace(/\>/, '').toUpperCase())
             }
